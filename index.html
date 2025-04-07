@@ -1,82 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oculto Produtos</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oculto Produtos</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
     <h1>Oculto Produtos</h1>
     <p>Bem vindo (a) ao Grupo Oculto!</p>
+  </header>
 
-    <table>
+  <main>
+    <div class="tabela-container">
+      <table>
         <thead>
-            <tr>
-                <th>Produto</th>
-                <th>Limpo (R$)</th>
-                <th>Sujo (R$)</th>
-                <th>Limpo Parceiro (R$)</th>
-                <th>Sujo Parceiro (R$)</th>
-                <th>Quantidade</th>
-            </tr>
+          <tr>
+            <th>Produto</th>
+            <th>Limpo (R$)</th>
+            <th>Sujo (R$)</th>
+            <th>Limpo Parceiro (R$)</th>
+            <th>Sujo Parceiro (R$)</th>
+            <th>Quantidade</th>
+          </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Facebook</td>
-                <td>15,00</td>
-                <td>10,00</td>
-                <td>13,00</td>
-                <td>8,00</td>
-                <td><input type="number" min="1" value="1" onchange="calcular(this)"></td>
-            </tr>
-            <tr>
-                <td>Instagram</td>
-                <td>15,00</td>
-                <td>10,00</td>
-                <td>13,00</td>
-                <td>8,00</td>
-                <td><input type="number" min="1" value="1" onchange="calcular(this)"></td>
-            </tr>
-            <tr>
-                <td>Gmail</td>
-                <td>15,00</td>
-                <td>10,00</td>
-                <td>13,00</td>
-                <td>8,00</td>
-                <td><input type="number" min="1" value="1" onchange="calcular(this)"></td>
-            </tr>
-            <tr>
-                <td>Hotmail</td>
-                <td>15,00</td>
-                <td>10,00</td>
-                <td>13,00</td>
-                <td>8,00</td>
-                <td><input type="number" min="1" value="1" onchange="calcular(this)"></td>
-            </tr>
-            <tr>
-                <td>Longbook</td>
-                <td>20,00</td>
-                <td>15,00</td>
-                <td>18,00</td>
-                <td>13,00</td>
-                <td><input type="number" min="1" value="1" onchange="calcular(this)"></td>
-            </tr>
-            <tr>
-                <td>Macbook</td>
-                <td>20,00</td>
-                <td>15,00</td>
-                <td>18,00</td>
-                <td>13,00</td>
-                <td><input type="number" min="1" value="1" onchange="calcular(this)"></td>
-            </tr>
-        </tbody>
-    </table>
+        <tbody id="produtos"></tbody>
+      </table>
+    </div>
+  </main>
 
-    <footer>
-        <p>By: Wolf - Discord: pocabdf</p>
-    </footer>
+  <footer>
+    <p>By: Wolf - Discord: pocabdf</p>
+  </footer>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
