@@ -1,39 +1,139 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oculto Produtos</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculto Produtos</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff00ff;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            border: 1px solid #ff00ff;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #1a1a1a;
+            color: #ff00ff;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            background-color: #111;
+            color: #fff;
+            border: 1px solid #ff00ff;
+        }
+
+        .total {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #ff00ff;
+        }
+
+        footer {
+            margin-top: 50px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Oculto Produtos</h1>
-    <p>Bem vindo (a) ao Grupo Oculto!</p>
-  </header>
+    <h1>Bem vindo(a) ao Grupo Oculto!</h1>
 
-  <main>
-    <div class="tabela-container">
-      <table>
+    <table>
         <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Limpo (R$)</th>
-            <th>Sujo (R$)</th>
-            <th>Limpo Parceiro (R$)</th>
-            <th>Sujo Parceiro (R$)</th>
-            <th>Quantidade</th>
-          </tr>
+            <tr>
+                <th>Produto</th>
+                <th>Valor Limpo</th>
+                <th>Valor Sujo (+30%)</th>
+                <th>Limpo Parceiro (-25%)</th>
+                <th>Sujo Parceiro (-25%)</th>
+                <th>Quantidade</th>
+            </tr>
         </thead>
-        <tbody id="produtos"></tbody>
-      </table>
+        <tbody id="tabela-produtos">
+            <tr>
+                <td>Longbook</td>
+                <td>R$ 150,00</td>
+                <td>R$ 195,00</td>
+                <td>R$ 112,50</td>
+                <td>R$ 146,25</td>
+                <td><input type="number" value="0" min="0" onchange="calcularTotal()"></td>
+            </tr>
+            <tr>
+                <td>Macbook</td>
+                <td>R$ 150,00</td>
+                <td>R$ 195,00</td>
+                <td>R$ 112,50</td>
+                <td>R$ 146,25</td>
+                <td><input type="number" value="0" min="0" onchange="calcularTotal()"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total" id="totais">
+        Total Limpo: R$ 0,00<br>
+        Total Sujo: R$ 0,00<br>
+        Total Limpo Parceiro: R$ 0,00<br>
+        Total Sujo Parceiro: R$ 0,00
     </div>
-  </main>
 
-  <footer>
-    <p>By: Wolf - Discord: pocabdf</p>
-  </footer>
+    <footer>
+        Wolf | Discord: pocabdf
+    </footer>
 
-  <script src="script.js"></script>
+    <script>
+        function formatar(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function calcularTotal() {
+            const linhas = document.querySelectorAll('#tabela-produtos tr');
+            let totalLimpo = 0;
+            let totalSujo = 0;
+            let totalLimpoParceiro = 0;
+            let totalSujoParceiro = 0;
+
+            linhas.forEach((linha) => {
+                const produto = linha.cells[0]?.innerText;
+                const quantidade = parseInt(linha.querySelector('input')?.value) || 0;
+
+                let valorLimpo = 150;
+                let valorSujo = 195;
+                let valorLimpoParceiro = 112.5;
+                let valorSujoParceiro = 146.25;
+
+                totalLimpo += valorLimpo * quantidade;
+                totalSujo += valorSujo * quantidade;
+                totalLimpoParceiro += valorLimpoParceiro * quantidade;
+                totalSujoParceiro += valorSujoParceiro * quantidade;
+            });
+
+            document.getElementById('totais').innerHTML = `
+                Total Limpo: ${formatar(totalLimpo)}<br>
+                Total Sujo: ${formatar(totalSujo)}<br>
+                Total Limpo Parceiro: ${formatar(totalLimpoParceiro)}<br>
+                Total Sujo Parceiro: ${formatar(totalSujoParceiro)}
+            `;
+        }
+    </script>
 </body>
 </html>
