@@ -1,87 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oculto Produtos</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #ff00ff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        table {
-            margin: 20px auto;
-            border-collapse: collapse;
-            width: 90%;
-            color: #fff;
-        }
-        th, td {
-            border: 1px solid #ff00ff;
-            padding: 10px;
-        }
-        input {
-            width: 60px;
-            padding: 5px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oculto Produtos</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>Wolf - Oculto Produtos</h1>
+    <p>Bem vindo (a) ao Grupo Oculto!</p>
+  </header>
 
-    <h1>Bem vindo (a) ao Grupo Oculto!</h1>
-    <h2>Tabela de Produtos</h2>
-
-    <table>
-        <tr>
+  <main>
+    <div class="tabela-container">
+      <table>
+        <thead>
+          <tr>
             <th>Produto</th>
-            <th>Quantidade</th>
             <th>Limpo (R$)</th>
             <th>Sujo (R$)</th>
             <th>Limpo Parceiro (R$)</th>
             <th>Sujo Parceiro (R$)</th>
-        </tr>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody id="produtos"></tbody>
+      </table>
+    </div>
+  </main>
 
-        <tr>
-            <td>Cartão Raro</td>
-            <td><input type="number" value="0" min="0" onchange="calcular(this, 15000, 19500, 11250, 14625)"></td>
-            <td id="limpo1">R$0,00</td>
-            <td id="sujo1">R$0,00</td>
-            <td id="limpoP1">R$0,00</td>
-            <td id="sujoP1">R$0,00</td>
-        </tr>
+  <footer>
+    <p>Discord: pocabdf</p>
+  </footer>
 
-        <tr>
-            <td>VIP 7 Dias</td>
-            <td><input type="number" value="0" min="0" onchange="calcular(this, 10000, 14000, 7500, 10500, 2)"></td>
-            <td id="limpo2">R$0,00</td>
-            <td id="sujo2">R$0,00</td>
-            <td id="limpoP2">R$0,00</td>
-            <td id="sujoP2">R$0,00</td>
-        </tr>
-
-        <!-- Pode ir duplicando os blocos acima para mais produtos -->
-
-    </table>
-
-    <p>Wolf - Discord: pocabdf</p>
-
-<script>
-function formatar(valor) {
-    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-
-function calcular(input, limpo, sujo, limpoP, sujoP) {
-    const qtd = parseInt(input.value) || 0;
-    const linha = input.parentElement.parentElement.rowIndex;
-
-    document.getElementById('limpo' + linha).innerText = formatar(qtd * limpo);
-    document.getElementById('sujo' + linha).innerText = formatar(qtd * sujo);
-    document.getElementById('limpoP' + linha).innerText = formatar(qtd * limpoP);
-    document.getElementById('sujoP' + linha).innerText = formatar(qtd * sujoP);
-}
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
