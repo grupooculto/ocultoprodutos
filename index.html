@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,73 +7,81 @@
     <style>
         body {
             background-color: #000;
-            color: #f0f;
+            color: #ff00ff;
             font-family: Arial, sans-serif;
             text-align: center;
         }
         table {
-            margin: auto;
+            margin: 20px auto;
             border-collapse: collapse;
             width: 90%;
+            color: #fff;
         }
         th, td {
-            border: 1px solid #f0f;
+            border: 1px solid #ff00ff;
             padding: 10px;
         }
         input {
-            width: 50px;
+            width: 60px;
+            padding: 5px;
             text-align: center;
         }
     </style>
 </head>
 <body>
+
     <h1>Bem vindo (a) ao Grupo Oculto!</h1>
     <h2>Tabela de Produtos</h2>
 
     <table>
-        <thead>
-            <tr>
-                <th>Produto</th>
-                <th>Limpo (R$)</th>
-                <th>Sujo (R$)</th>
-                <th>Limpo Parceiro (R$)</th>
-                <th>Sujo Parceiro (R$)</th>
-                <th>Qtd</th>
-                <th>Total Limpo (R$)</th>
-                <th>Total Sujo (R$)</th>
-                <th>Total Limpo Parceiro (R$)</th>
-                <th>Total Sujo Parceiro (R$)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Produto X</td>
-                <td>10,00</td>
-                <td>8,00</td>
-                <td>9,00</td>
-                <td>7,00</td>
-                <td><input type="number" value="0" min="0" onchange="calcular(this, 10, 8, 9, 7)"></td>
-                <td class="limpo">0,00</td>
-                <td class="sujo">0,00</td>
-                <td class="limpo-parceiro">0,00</td>
-                <td class="sujo-parceiro">0,00</td>
-            </tr>
-            <!-- Você pode copiar esse bloco <tr> e colar pra cada produto da sua tabela real -->
-        </tbody>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Limpo (R$)</th>
+            <th>Sujo (R$)</th>
+            <th>Limpo Parceiro (R$)</th>
+            <th>Sujo Parceiro (R$)</th>
+        </tr>
+
+        <tr>
+            <td>Cartão Raro</td>
+            <td><input type="number" value="0" min="0" onchange="calcular(this, 15000, 19500, 11250, 14625)"></td>
+            <td id="limpo1">R$0,00</td>
+            <td id="sujo1">R$0,00</td>
+            <td id="limpoP1">R$0,00</td>
+            <td id="sujoP1">R$0,00</td>
+        </tr>
+
+        <tr>
+            <td>VIP 7 Dias</td>
+            <td><input type="number" value="0" min="0" onchange="calcular(this, 10000, 14000, 7500, 10500, 2)"></td>
+            <td id="limpo2">R$0,00</td>
+            <td id="sujo2">R$0,00</td>
+            <td id="limpoP2">R$0,00</td>
+            <td id="sujoP2">R$0,00</td>
+        </tr>
+
+        <!-- Pode ir duplicando os blocos acima para mais produtos -->
+
     </table>
 
     <p>Wolf - Discord: pocabdf</p>
 
-    <script>
-        function calcular(input, limpo, sujo, limpoP, sujoP) {
-            const quantidade = parseInt(input.value) || 0;
-            const row = input.parentElement.parentElement;
-            row.querySelector('.limpo').innerText = (quantidade * limpo).toFixed(2).replace('.', ',');
-            row.querySelector('.sujo').innerText = (quantidade * sujo).toFixed(2).replace('.', ',');
-            row.querySelector('.limpo-parceiro').innerText = (quantidade * limpoP).toFixed(2).replace('.', ',');
-            row.querySelector('.sujo-parceiro').innerText = (quantidade * sujoP).toFixed(2).replace('.', ',');
-        }
-    </script>
+<script>
+function formatar(valor) {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function calcular(input, limpo, sujo, limpoP, sujoP) {
+    const qtd = parseInt(input.value) || 0;
+    const linha = input.parentElement.parentElement.rowIndex;
+
+    document.getElementById('limpo' + linha).innerText = formatar(qtd * limpo);
+    document.getElementById('sujo' + linha).innerText = formatar(qtd * sujo);
+    document.getElementById('limpoP' + linha).innerText = formatar(qtd * limpoP);
+    document.getElementById('sujoP' + linha).innerText = formatar(qtd * sujoP);
+}
+</script>
 
 </body>
 </html>
