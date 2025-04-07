@@ -25,20 +25,67 @@ produtos.forEach((produto, index) => {
   const tr = document.createElement('tr');
   tr.innerHTML = `
     <td>${produto.nome}</td>
-    <td class="limpo">R$ ${produto.limpo.toLocaleString('pt-BR')}</td>
-    <td class="sujo">R$ ${produto.sujo.toLocaleString('pt-BR')}</td>
-    <td class="limpo-parceiro">R$ ${produto.limpoParceiro.toLocaleString('pt-BR')}</td>
-    <td class="sujo-parceiro">R$ ${produto.sujoParceiro.toLocaleString('pt-BR')}</td>
-    <td><input type="number" min="1" value="1" onchange="atualizaValor(${index}, this.value)"></td>
+    <td class="limpo">R$ 0,00</td>
+    <td class="sujo">R$ 0,00</td>
+    <td class="limpo-parceiro">R$ 0,00</td>
+    <td class="sujo-parceiro">R$ 0,00</td>
+    <td><input type="number" min="0" value="0" onchange="atualizaValor(${index}, this.value)"></td>
   `;
   tbody.appendChild(tr);
 });
 
+const totais = {
+  limpo: 0,
+  sujo: 0,
+  limpoParceiro: 0,
+  sujoParceiro: 0
+};
+
+const totalDiv = document.createElement('div');
+totalDiv.classList.add('total-geral');
+document.body.appendChild(totalDiv);
+
 function atualizaValor(index, qtd) {
+  qtd = parseInt(qtd) || 0;
+
   const produto = produtos[index];
   const tr = tbody.children[index];
-  tr.querySelector('.limpo').textContent = `R$ ${(produto.limpo * qtd).toLocaleString('pt-BR')}`;
-  tr.querySelector('.sujo').textContent = `R$ ${(produto.sujo * qtd).toLocaleString('pt-BR')}`;
-  tr.querySelector('.limpo-parceiro').textContent = `R$ ${(produto.limpoParceiro * qtd).toLocaleString('pt-BR')}`;
-  tr.querySelector('.sujo-parceiro').textContent = `R$ ${(produto.sujoParceiro * qtd).toLocaleString('pt-BR')}`;
+  
+  const totalLimpo = produto.limpo * qtd;
+  const totalSujo = produto.sujo * qtd;
+  const totalLimpoParceiro = produto.limpoParceiro * qtd;
+  const totalSujoParceiro = produto.sujoParceiro * qtd;
+
+  tr.querySelector('.limpo').textContent = `R$ ${totalLimpo.toLocaleString('pt-BR')}`;
+  tr.querySelector('.sujo').textContent = `R$ ${totalSujo.toLocaleString('pt-BR')}`;
+  tr.querySelector('.limpo-parceiro').textContent = `R$ ${totalLimpoParceiro.toLocaleString('pt-BR')}`;
+  tr.querySelector('.sujo-parceiro').textContent = `R$ ${totalSujoParceiro.toLocaleString('pt-BR')}`;
+
+  calcularTotais();
+}
+
+function calcularTotais() {
+  totais.limpo = 0;
+  totais.sujo = 0;
+  totais.limpoParceiro = 0;
+  totais.sujoParceiro = 0;
+
+  Array.from(tbody.children).forEach((tr, index) => {
+    const input = tr.querySelector('input');
+    const qtd = parseInt(input.value) || 0;
+    const produto = produtos[index];
+
+    totais.limpo += produto.limpo * qtd;
+    totais.sujo += produto.sujo * qtd;
+    totais.limpoParceiro += produto.limpoParceiro * qtd;
+    totais.sujoParceiro += produto.sujoParceiro * qtd;
+  });
+
+  totalDiv.innerHTML = `
+    <h2>Total:</h2>
+    <p>Limpo: R$ ${totais.limpo.toLocaleString('pt-BR')}</p>
+    <p>Sujo: R$ ${totais.sujo.toLocaleString('pt-BR')}</p>
+    <p>Limpo Parceiro: R$ ${totais.limpoParceiro.toLocaleString('pt-BR')}</p>
+    <p>Sujo Parceiro: R$ ${totais.sujoParceiro.toLocaleString('pt-BR')}</p>
+  `;
 }
