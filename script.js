@@ -25,7 +25,7 @@ const totalSujo = document.getElementById('total-sujo');
 const totalLimpoParceiro = document.getElementById('total-limpo-parceiro');
 const totalSujoParceiro = document.getElementById('total-sujo-parceiro');
 
-// Preencher a tabela com produtos e quantidade começando em 0
+// Preencher a tabela com produtos
 produtos.forEach((produto, index) => {
   const tr = document.createElement('tr');
   tr.innerHTML = `
@@ -62,7 +62,7 @@ function calcularTotais() {
   let totalLimpoValor = 0, totalSujoValor = 0, totalLimpoParceiroValor = 0, totalSujoParceiroValor = 0;
 
   produtos.forEach((produto, index) => {
-    const qtd = parseInt(tbody.children[index].querySelector('input').value) || 0;
+    const qtd = tbody.children[index].querySelector('input').value;
     totalLimpoValor += produto.limpo * qtd;
     totalSujoValor += produto.sujo * qtd;
     totalLimpoParceiroValor += produto.limpoParceiro * qtd;
