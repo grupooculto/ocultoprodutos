@@ -1,70 +1,60 @@
-body {
-  background-color: #000;
-  color: #ff69b4;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
+const produtos = [
+  { nome: 'Longbook', limpo: 40, sujo: 52, limpoParc: 30, sujoParc: 39 },
+  { nome: 'Macbook', limpo: 40, sujo: 52, limpoParc: 30, sujoParc: 39 },
+  { nome: 'Spotify', limpo: 25, sujo: 32.5, limpoParc: 18.75, sujoParc: 24.38 },
+  { nome: 'Netflix', limpo: 30, sujo: 39, limpoParc: 22.5, sujoParc: 29.25 },
+  { nome: 'HBO Max', limpo: 20, sujo: 26, limpoParc: 15, sujoParc: 19.5 },
+  { nome: 'Paramount', limpo: 15, sujo: 19.5, limpoParc: 11.25, sujoParc: 14.63 },
+  { nome: 'Crunchyroll', limpo: 20, sujo: 26, limpoParc: 15, sujoParc: 19.5 }
+];
 
-header {
-  text-align: center;
-  padding: 20px;
-}
+const tbody = document.getElementById('produtos');
 
-.tabela-container {
-  overflow-x: auto;
-  margin: 20px;
-}
+produtos.forEach((produto, index) => {
+  const tr = document.createElement('tr');
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  color: #fff;
-}
+  tr.innerHTML = `
+    <td>${produto.nome}</td>
+    <td>R$ ${produto.limpo.toFixed(2).replace('.', ',')}</td>
+    <td>R$ ${produto.sujo.toFixed(2).replace('.', ',')}</td>
+    <td>R$ ${produto.limpoParc.toFixed(2).replace('.', ',')}</td>
+    <td>R$ ${produto.sujoParc.toFixed(2).replace('.', ',')}</td>
+    <td><input type="number" min="0" value="0" onchange="calcularTotal()"></td>
+  `;
 
-th, td {
-  border: 1px solid #ff69b4;
-  padding: 8px;
-  text-align: center;
-}
+  tbody.appendChild(tr);
+});
 
-input {
-  width: 60px;
-  text-align: center;
-  background-color: #111;
-  color: #ff69b4;
-  border: 1px solid #ff69b4;
-  border-radius: 4px;
-}
+const totalContainer = document.createElement('div');
+totalContainer.classList.add('total-container');
+totalContainer.innerHTML = `
+  <h2>Total dos Produtos</h2>
+  <p id="totalLimpo">Total Limpo: R$ 0,00</p>
+  <p id="totalSujo">Total Sujo: R$ 0,00</p>
+  <p id="totalLimpoParc">Total Limpo Parceiro: R$ 0,00</p>
+  <p id="totalSujoParc">Total Sujo Parceiro: R$ 0,00</p>
+`;
 
-input:focus {
-  outline: none;
-  border-color: #fff;
-}
+document.body.appendChild(totalContainer);
 
-footer {
-  text-align: center;
-  padding: 10px;
-  background-color: #111;
-  color: #ff69b4;
-}
+function calcularTotal() {
+  const inputs = document.querySelectorAll('input[type="number"]');
 
-.total-container {
-  text-align: center;
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #111;
-  border: 1px solid #ff69b4;
-  border-radius: 8px;
-}
+  let totalLimpo = 0;
+  let totalSujo = 0;
+  let totalLimpoParc = 0;
+  let totalSujoParc = 0;
 
-.total-container h2 {
-  color: #ff69b4;
-  margin-bottom: 10px;
-}
+  inputs.forEach((input, index) => {
+    const quantidade = parseInt(input.value) || 0;
+    totalLimpo += produtos[index].limpo * quantidade;
+    totalSujo += produtos[index].sujo * quantidade;
+    totalLimpoParc += produtos[index].limpoParc * quantidade;
+    totalSujoParc += produtos[index].sujoParc * quantidade;
+  });
 
-.total-container p {
-  margin: 5px 0;
-  color: #fff;
-  font-size: 18px;
+  document.getElementById('totalLimpo').innerText = `Total Limpo: R$ ${totalLimpo.toFixed(2).replace('.', ',')}`;
+  document.getElementById('totalSujo').innerText = `Total Sujo: R$ ${totalSujo.toFixed(2).replace('.', ',')}`;
+  document.getElementById('totalLimpoParc').innerText = `Total Limpo Parceiro: R$ ${totalLimpoParc.toFixed(2).replace('.', ',')}`;
+  document.getElementById('totalSujoParc').innerText = `Total Sujo Parceiro: R$ ${totalSujoParc.toFixed(2).replace('.', ',')}`;
 }
