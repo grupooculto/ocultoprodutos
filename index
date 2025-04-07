@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculto Produtos</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff00ff;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ff00ff;
+            padding: 10px;
+        }
+
+        input {
+            width: 60px;
+        }
+
+        .resultado {
+            margin-top: 10px;
+            color: #00ffcc;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem vindo (a) ao Grupo Oculto!</h1>
+    <h2>Tabela de Produtos</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Limpo (R$)</th>
+                <th>Sujo (R$)</th>
+                <th>Limpo Parceiro (R$)</th>
+                <th>Sujo Parceiro (R$)</th>
+                <th>Qtd</th>
+                <th>Total (R$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Produto 1</td>
+                <td>10,00</td>
+                <td>8,00</td>
+                <td>9,00</td>
+                <td>7,00</td>
+                <td><input type="number" value="0" min="0" onchange="calcular(this, 10, 8, 9, 7)"></td>
+                <td class="resultado">0,00</td>
+            </tr>
+            <tr>
+                <td>Produto 2</td>
+                <td>20,00</td>
+                <td>18,00</td>
+                <td>19,00</td>
+                <td>17,00</td>
+                <td><input type="number" value="0" min="0" onchange="calcular(this, 20, 18, 19, 17)"></td>
+                <td class="resultado">0,00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        Wolf - Discord: pocabdf
+    </footer>
+
+    <script>
+        function calcular(input, limpo, sujo, limpoP, sujoP) {
+            let qtd = parseInt(input.value);
+            if (isNaN(qtd) || qtd <= 0) {
+                qtd = 0;
+            }
+            let tdResultado = input.parentElement.nextElementSibling;
+            let valor = qtd * limpo; // padrão Limpo
+            tdResultado.innerHTML = valor.toFixed(2).replace('.', ',');
+        }
+    </script>
+</body>
+</html>
