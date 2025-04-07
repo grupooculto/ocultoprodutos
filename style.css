@@ -33,6 +33,12 @@ input {
   text-align: center;
 }
 
+#totais {
+  margin: 20px;
+  text-align: center;
+  color: #ff69b4;
+}
+
 footer {
   text-align: center;
   padding: 10px;
