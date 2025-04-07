@@ -20,25 +20,57 @@ const produtos = [
 ];
 
 const tbody = document.getElementById('produtos');
+const totalLimpo = document.getElementById('total-limpo');
+const totalSujo = document.getElementById('total-sujo');
+const totalLimpoParceiro = document.getElementById('total-limpo-parceiro');
+const totalSujoParceiro = document.getElementById('total-sujo-parceiro');
 
+// Preencher a tabela com produtos
 produtos.forEach((produto, index) => {
   const tr = document.createElement('tr');
   tr.innerHTML = `
     <td>${produto.nome}</td>
-    <td class="limpo">R$ ${produto.limpo.toLocaleString('pt-BR')}</td>
-    <td class="sujo">R$ ${produto.sujo.toLocaleString('pt-BR')}</td>
-    <td class="limpo-parceiro">R$ ${produto.limpoParceiro.toLocaleString('pt-BR')}</td>
-    <td class="sujo-parceiro">R$ ${produto.sujoParceiro.toLocaleString('pt-BR')}</td>
-    <td><input type="number" min="1" value="1" onchange="atualizaValor(${index}, this.value)"></td>
+    <td class="limpo">R$ ${(produto.limpo * 0).toLocaleString('pt-BR')}</td>
+    <td class="sujo">R$ ${(produto.sujo * 0).toLocaleString('pt-BR')}</td>
+    <td class="limpo-parceiro">R$ ${(produto.limpoParceiro * 0).toLocaleString('pt-BR')}</td>
+    <td class="sujo-parceiro">R$ ${(produto.sujoParceiro * 0).toLocaleString('pt-BR')}</td>
+    <td><input type="number" min="0" value="0" onchange="atualizaValor(${index}, this.value)"></td>
   `;
   tbody.appendChild(tr);
 });
 
+// Atualizar valores e totais
 function atualizaValor(index, qtd) {
   const produto = produtos[index];
   const tr = tbody.children[index];
-  tr.querySelector('.limpo').textContent = `R$ ${(produto.limpo * qtd).toLocaleString('pt-BR')}`;
-  tr.querySelector('.sujo').textContent = `R$ ${(produto.sujo * qtd).toLocaleString('pt-BR')}`;
-  tr.querySelector('.limpo-parceiro').textContent = `R$ ${(produto.limpoParceiro * qtd).toLocaleString('pt-BR')}`;
-  tr.querySelector('.sujo-parceiro').textContent = `R$ ${(produto.sujoParceiro * qtd).toLocaleString('pt-BR')}`;
+
+  const limpo = produto.limpo * qtd;
+  const sujo = produto.sujo * qtd;
+  const limpoParceiro = produto.limpoParceiro * qtd;
+  const sujoParceiro = produto.sujoParceiro * qtd;
+
+  tr.querySelector('.limpo').textContent = `R$ ${limpo.toLocaleString('pt-BR')}`;
+  tr.querySelector('.sujo').textContent = `R$ ${sujo.toLocaleString('pt-BR')}`;
+  tr.querySelector('.limpo-parceiro').textContent = `R$ ${limpoParceiro.toLocaleString('pt-BR')}`;
+  tr.querySelector('.sujo-parceiro').textContent = `R$ ${sujoParceiro.toLocaleString('pt-BR')}`;
+
+  calcularTotais();
+}
+
+// Calcular os totais
+function calcularTotais() {
+  let totalLimpoValor = 0, totalSujoValor = 0, totalLimpoParceiroValor = 0, totalSujoParceiroValor = 0;
+
+  produtos.forEach((produto, index) => {
+    const qtd = tbody.children[index].querySelector('input').value;
+    totalLimpoValor += produto.limpo * qtd;
+    totalSujoValor += produto.sujo * qtd;
+    totalLimpoParceiroValor += produto.limpoParceiro * qtd;
+    totalSujoParceiroValor += produto.sujoParceiro * qtd;
+  });
+
+  totalLimpo.textContent = `R$ ${totalLimpoValor.toLocaleString('pt-BR')}`;
+  totalSujo.textContent = `R$ ${totalSujoValor.toLocaleString('pt-BR')}`;
+  totalLimpoParceiro.textContent = `R$ ${totalLimpoParceiroValor.toLocaleString('pt-BR')}`;
+  totalSujoParceiro.textContent = `R$ ${totalSujoParceiroValor.toLocaleString('pt-BR')}`;
 }
