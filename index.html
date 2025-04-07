@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,43 +7,32 @@
     <style>
         body {
             background-color: #000;
-            color: #fff;
+            color: #f0f;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
         }
-
-        h1 {
-            color: #ff00ff;
-        }
-
         table {
             width: 100%;
-            margin-top: 20px;
             border-collapse: collapse;
+            margin-top: 20px;
         }
-
         th, td {
-            border: 1px solid #ff00ff;
+            border: 1px solid #f0f;
             padding: 10px;
         }
-
         input {
             width: 60px;
+            text-align: center;
         }
-
-        .resultado {
-            margin-top: 10px;
-            color: #00ffcc;
-        }
-
         footer {
-            margin-top: 30px;
-            color: #999;
+            margin-top: 40px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
+
     <h1>Bem vindo (a) ao Grupo Oculto!</h1>
     <h2>Tabela de Produtos</h2>
 
@@ -62,21 +51,39 @@
         <tbody>
             <tr>
                 <td>Produto 1</td>
-                <td>10,00</td>
-                <td>8,00</td>
-                <td>9,00</td>
-                <td>7,00</td>
-                <td><input type="number" value="0" min="0" onchange="calcular(this, 10, 8, 9, 7)"></td>
-                <td class="resultado">0,00</td>
+                <td>150,00</td>
+                <td>195,00</td>
+                <td>112,50</td>
+                <td>146,25</td>
+                <td><input type="number" value="0" min="0" onchange="calcular(this, 150)"></td>
+                <td class="total">0,00</td>
             </tr>
             <tr>
                 <td>Produto 2</td>
-                <td>20,00</td>
-                <td>18,00</td>
-                <td>19,00</td>
-                <td>17,00</td>
-                <td><input type="number" value="0" min="0" onchange="calcular(this, 20, 18, 19, 17)"></td>
-                <td class="resultado">0,00</td>
+                <td>200,00</td>
+                <td>260,00</td>
+                <td>150,00</td>
+                <td>195,00</td>
+                <td><input type="number" value="0" min="0" onchange="calcular(this, 200)"></td>
+                <td class="total">0,00</td>
+            </tr>
+            <tr>
+                <td>Produto 3</td>
+                <td>300,00</td>
+                <td>390,00</td>
+                <td>225,00</td>
+                <td>292,50</td>
+                <td><input type="number" value="0" min="0" onchange="calcular(this, 300)"></td>
+                <td class="total">0,00</td>
+            </tr>
+            <tr>
+                <td>Produto 4</td>
+                <td>550,00</td>
+                <td>715,00</td>
+                <td>412,50</td>
+                <td>536,25</td>
+                <td><input type="number" value="0" min="0" onchange="calcular(this, 550)"></td>
+                <td class="total">0,00</td>
             </tr>
         </tbody>
     </table>
@@ -86,15 +93,13 @@
     </footer>
 
     <script>
-        function calcular(input, limpo, sujo, limpoP, sujoP) {
+        function calcular(input, preco) {
             let qtd = parseInt(input.value);
-            if (isNaN(qtd) || qtd <= 0) {
-                qtd = 0;
-            }
-            let tdResultado = input.parentElement.nextElementSibling;
-            let valor = qtd * limpo; // padrão Limpo
-            tdResultado.innerHTML = valor.toFixed(2).replace('.', ',');
+            let total = preco * qtd;
+            let td = input.parentElement.nextElementSibling;
+            td.textContent = total.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
     </script>
+
 </body>
 </html>
