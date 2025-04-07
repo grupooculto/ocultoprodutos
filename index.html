@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,29 +10,23 @@
             color: #f0f;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
         }
         table {
-            width: 100%;
+            margin: auto;
             border-collapse: collapse;
-            margin-top: 20px;
+            width: 90%;
         }
         th, td {
             border: 1px solid #f0f;
             padding: 10px;
         }
         input {
-            width: 60px;
+            width: 50px;
             text-align: center;
-        }
-        footer {
-            margin-top: 40px;
-            font-size: 14px;
         }
     </style>
 </head>
 <body>
-
     <h1>Bem vindo (a) ao Grupo Oculto!</h1>
     <h2>Tabela de Produtos</h2>
 
@@ -45,61 +39,6 @@
                 <th>Limpo Parceiro (R$)</th>
                 <th>Sujo Parceiro (R$)</th>
                 <th>Qtd</th>
-                <th>Total (R$)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Produto 1</td>
-                <td>150,00</td>
-                <td>195,00</td>
-                <td>112,50</td>
-                <td>146,25</td>
-                <td><input type="number" value="0" min="0" onchange="calcular(this, 150)"></td>
-                <td class="total">0,00</td>
-            </tr>
-            <tr>
-                <td>Produto 2</td>
-                <td>200,00</td>
-                <td>260,00</td>
-                <td>150,00</td>
-                <td>195,00</td>
-                <td><input type="number" value="0" min="0" onchange="calcular(this, 200)"></td>
-                <td class="total">0,00</td>
-            </tr>
-            <tr>
-                <td>Produto 3</td>
-                <td>300,00</td>
-                <td>390,00</td>
-                <td>225,00</td>
-                <td>292,50</td>
-                <td><input type="number" value="0" min="0" onchange="calcular(this, 300)"></td>
-                <td class="total">0,00</td>
-            </tr>
-            <tr>
-                <td>Produto 4</td>
-                <td>550,00</td>
-                <td>715,00</td>
-                <td>412,50</td>
-                <td>536,25</td>
-                <td><input type="number" value="0" min="0" onchange="calcular(this, 550)"></td>
-                <td class="total">0,00</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <footer>
-        Wolf - Discord: pocabdf
-    </footer>
-
-    <script>
-        function calcular(input, preco) {
-            let qtd = parseInt(input.value);
-            let total = preco * qtd;
-            let td = input.parentElement.nextElementSibling;
-            td.textContent = total.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        }
-    </script>
-
-</body>
-</html>
+                <th>Total Limpo (R$)</th>
+                <th>Total Sujo (R$)</th>
+                <th>Total Limpo Parceiro (R
