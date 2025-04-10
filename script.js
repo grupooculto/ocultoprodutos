@@ -11,7 +11,7 @@ const produtos = [
   { nome: "Placa", limpo: 10000, sujo: 13000, limpoParceiro: 7500, sujoParceiro: 9750 },
   { nome: "Ticket", limpo: 7000, sujo: 9100, limpoParceiro: 5250, sujoParceiro: 6825 },
   { nome: "Lockpick Aluminio", limpo: 10000, sujo: 13000, limpoParceiro: 7500, sujoParceiro: 9750 },
-  { nome: "Lockpick Cobre", limpo: 15000, sujo: 19500, limpoParceiro: 11250, sujoParceiro: 14625 },
+  { nome: "Lockpick Cobre", limpo: 6500, sujo: 8125, limpoParceiro: 5000, sujoParceiro: 6250 },
   { nome: "Longbook", limpo: 30000, sujo: 39000, limpoParceiro: 22500, sujoParceiro: 29250 },
   { nome: "Macbook", limpo: 30000, sujo: 39000, limpoParceiro: 22500, sujoParceiro: 29250 },
   { nome: "Nitro", limpo: 35000, sujo: 45500, limpoParceiro: 26250, sujoParceiro: 34125 },
