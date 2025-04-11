@@ -22,7 +22,23 @@ table {
   color: #fff;
 }
 
-th, td {
+
+
+ 
+
+h3 {
+  margin: 0;
+  margin-top: 10px;
+  color: #fff;
+  text-shadow:
+    0 0 5px #ff69b4,
+    0 0 10px #ff69b4,
+    0 0 20px #ff69b4,
+    0 0 40px #ff69b4;
+}
+
+th,
+td {
   border: 1px solid #ff69b4;
   padding: 8px;
   text-align: center;
@@ -33,10 +49,29 @@ input {
   text-align: center;
 }
 
+p {
+  margin: 0;
+}
+
 #totais {
-  margin: 20px;
+  margin: 5px;
   text-align: center;
-  color: #ff69b4;
+  color: #fff;
+  font-size: 25px;
+  text-shadow:
+    0 0 5px #ff69b4,
+    0 0 10px #ff69b4,
+    0 0 20px #ff69b4,
+    0 0 40px #ff69b4;
+}
+
+header {
+  color: #fff;
+  text-shadow:
+    0 0 5px #ff69b4,
+    0 0 10px #ff69b4,
+    0 0 20px #ff69b4,
+    0 0 40px #ff69b4;
 }
 
 footer {
@@ -44,4 +79,49 @@ footer {
   padding: 10px;
   background-color: #111;
   color: #ff69b4;
+}
+
+
+.dados-retorno {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+.dados-retorno .dados-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+.dados-retorno .dados-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+footer p {
+  color: #fff;
+  text-shadow:
+    0 0 5px #ff69b4,
+    0 0 10px #ff69b4,
+    0 0 20px #ff69b4,
+    0 0 40px #ff69b4;
+}
+
+select{
+  outline: none;
+  border: none;
+  font-size: 18px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
 }
