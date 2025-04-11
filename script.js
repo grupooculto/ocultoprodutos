@@ -20,10 +20,10 @@ const produtos = [
 ];
 
 const tbody = document.getElementById('produtos');
-const totalLimpo = document.getElementById('total-limpo');
-const totalSujo = document.getElementById('total-sujo');
-const totalLimpoParceiro = document.getElementById('total-limpo-parceiro');
-const totalSujoParceiro = document.getElementById('total-sujo-parceiro');
+// const totalLimpo = document.getElementById('total-limpo');
+// const totalSujo = document.getElementById('total-sujo');
+// const totalLimpoParceiro = document.getElementById('total-limpo-parceiro');
+// const totalSujoParceiro = document.getElementById('total-sujo-parceiro');
 
 // Preencher a tabela com produtos
 produtos.forEach((produto, index) => {
@@ -54,12 +54,19 @@ function atualizaValor(index, qtd) {
   tr.querySelector('.limpo-parceiro').textContent = `R$ ${limpoParceiro.toLocaleString('pt-BR')}`;
   tr.querySelector('.sujo-parceiro').textContent = `R$ ${sujoParceiro.toLocaleString('pt-BR')}`;
 
-  calcularTotais();
+  calcularTotais(document.querySelector("#mode-selector").value)
 }
 
+function formatBrl(value){
+  return value.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  })
+}
 // Calcular os totais
-function calcularTotais() {
+function calcularTotais(selector) {
   let totalLimpoValor = 0, totalSujoValor = 0, totalLimpoParceiroValor = 0, totalSujoParceiroValor = 0;
+  const totais = document.querySelector("#totais");
 
   produtos.forEach((produto, index) => {
     const qtd = tbody.children[index].querySelector('input').value;
@@ -69,8 +76,23 @@ function calcularTotais() {
     totalSujoParceiroValor += produto.sujoParceiro * qtd;
   });
 
-  totalLimpo.textContent = `R$ ${totalLimpoValor.toLocaleString('pt-BR')}`;
-  totalSujo.textContent = `R$ ${totalSujoValor.toLocaleString('pt-BR')}`;
-  totalLimpoParceiro.textContent = `R$ ${totalLimpoParceiroValor.toLocaleString('pt-BR')}`;
-  totalSujoParceiro.textContent = `R$ ${totalSujoParceiroValor.toLocaleString('pt-BR')}`;
+  if (selector == "limpo" && totalLimpoValor > 0) {
+    totais.innerHTML = ` <p>Limpo: <span>${formatBrl(totalLimpoValor)}</span></p> `
+  } else if (selector == "sujo" && totalSujoValor > 0) {
+    totais.innerHTML = ` <p>Sujo: <span>${formatBrl(totalSujoValor)}</span></p> `
+  } else if (selector == "limpo-parc" && totalSujoValor > 0) {
+    totais.innerHTML = ` <p>Limpo Parceiro: <span>${formatBrl(totalLimpoParceiroValor)}</span></p> `
+  } else if (selector == "sujo-parc" && totalLimpoParceiroValor > 0) {
+    totais.innerHTML = ` <p>Sujo Parceiro: <span>${formatBrl(totalSujoParceiroValor)}</span></p> `
+  } else if (selector == '') {
+    totais.innerHTML = "Nenhum valor atribuido"
+  }
+
 }
+
+ 
+document.querySelector("#mode-selector").addEventListener('change', (e) => {
+  console.log("ALTERANDO SELETOR")
+  calcularTotais(e.target.value)
+})
+calcularTotais('')
