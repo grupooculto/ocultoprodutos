@@ -18,6 +18,7 @@ const produtos = [
   { nome: "Pager", limpo: 40000, sujo: 52000, limpoParceiro: 30000, sujoParceiro: 39000 },
   { nome: "Chip", limpo: 5000, sujo: 6500, limpoParceiro: 3750, sujoParceiro: 4875 }
 ];
+const porcentagemVendedor = 0.10 //10%
 
 const tbody = document.getElementById('produtos');
 // const totalLimpo = document.getElementById('total-limpo');
@@ -57,7 +58,7 @@ function atualizaValor(index, qtd) {
   calcularTotais(document.querySelector("#mode-selector").value)
 }
 
-function formatBrl(value){
+function formatBrl(value) {
   return value.toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL'
@@ -77,20 +78,26 @@ function calcularTotais(selector) {
   });
 
   if (selector == "limpo" && totalLimpoValor > 0) {
-    totais.innerHTML = ` <p>Limpo: <span>${formatBrl(totalLimpoValor)}</span></p> `
+    let totalVendedor = totalLimpoValor * porcentagemVendedor;
+    totais.innerHTML = ` <p>Limpo: <span>${formatBrl(totalLimpoValor)}</span></p> <p>Comissão: ${formatBrl(totalVendedor)}</p>`
   } else if (selector == "sujo" && totalSujoValor > 0) {
-    totais.innerHTML = ` <p>Sujo: <span>${formatBrl(totalSujoValor)}</span></p> `
+    let totalVendedor = totalSujoValor * porcentagemVendedor;
+    totais.innerHTML = ` <p>Sujo: <span>${formatBrl(totalSujoValor)}</span></p> <p>Comissão: ${formatBrl(totalVendedor)}</p>`
   } else if (selector == "limpo-parc" && totalSujoValor > 0) {
-    totais.innerHTML = ` <p>Limpo Parceiro: <span>${formatBrl(totalLimpoParceiroValor)}</span></p> `
+    let totalVendedor = totalLimpoParceiroValor * porcentagemVendedor;
+    totais.innerHTML = ` <p>Limpo Parceiro: <span>${formatBrl(totalLimpoParceiroValor)}</span></p> <p>Comissão: ${formatBrl(totalVendedor)}</p>`
   } else if (selector == "sujo-parc" && totalLimpoParceiroValor > 0) {
-    totais.innerHTML = ` <p>Sujo Parceiro: <span>${formatBrl(totalSujoParceiroValor)}</span></p> `
+    let totalVendedor = totalLimpoParceiroValor * porcentagemVendedor;
+    totais.innerHTML = ` <p>Sujo Parceiro: <span>${formatBrl(totalSujoParceiroValor)}</span></p> 
+    <p>Comissão: ${formatBrl(totalVendedor)}</p>
+    `
   } else if (selector == '') {
     totais.innerHTML = "Nenhum valor atribuido"
   }
 
 }
 
- 
+
 document.querySelector("#mode-selector").addEventListener('change', (e) => {
   console.log("ALTERANDO SELETOR")
   calcularTotais(e.target.value)
