@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oculto Produtos</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <header>
     <h1>Oculto Produtos</h1>
@@ -29,13 +31,24 @@
       </table>
     </div>
 
-    <div id="totais">
-      <h3>Total dos Produtos</h3>
-      <p>Limpo: <span id="total-limpo">R$ 0,00</span></p>
-      <p>Sujo: <span id="total-sujo">R$ 0,00</span></p>
-      <p>Limpo Parceiro: <span id="total-limpo-parceiro">R$ 0,00</span></p>
-      <p>Sujo Parceiro: <span id="total-sujo-parceiro">R$ 0,00</span></p>
+    <div class="dados-retorno">
+      <div class="dados-head">
+        <select id="mode-selector">
+          <option value="">Selecione o retorno...</option>
+          <option value="limpo">Limpo</option>
+          <option value="sujo">Sujo</option>
+          <option value="limpo-parc">Limpo Parceiro</option>
+          <option value="sujo-parc">Sujo Parceiro</option>
+        </select>
+      </div>
+      <div class="dados-body">
+        <h3>Total dos Produtos</h3>
+        <div id="totais"> </div>
+      </div>
+
     </div>
+
+
   </main>
 
   <footer>
@@ -44,4 +57,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
