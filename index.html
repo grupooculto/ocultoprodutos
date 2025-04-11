@@ -1,47 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oculto Produtos</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oculto Produtos</title>
+
+<style>
+  body {
+    background-color: #121212;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #ff00ff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+  }
+
+  input {
+    width: 50px;
+    background: #222;
+    color: #fff;
+    border: 1px solid #555;
+    text-align: center;
+  }
+
+  select {
+    background: #222;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+
+  #formaPagamento.destaque {
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+  }
+
+  .totais p {
+    margin: 5px 0;
+  }
+
+  footer {
+    margin-top: 30px;
+    text-align: center;
+    color: #ff00ff;
+    font-weight: bold;
+  }
+</style>
+
 </head>
+
 <body>
-  <header>
-    <h1>Oculto Produtos</h1>
-    <p>Bem vindo (a) ao Grupo Oculto!</p>
-  </header>
 
-  <main>
-    <div class="tabela-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Limpo (R$)</th>
-            <th>Sujo (R$)</th>
-            <th>Limpo Parceiro (R$)</th>
-            <th>Sujo Parceiro (R$)</th>
-            <th>Quantidade</th>
-          </tr>
-        </thead>
-        <tbody id="produtos"></tbody>
-      </table>
-    </div>
+<h1>Bem vindo (a) ao Grupo Oculto!</h1>
 
-    <div id="totais">
-      <h3>Total dos Produtos</h3>
-      <p>Limpo: <span id="total-limpo">R$ 0,00</span></p>
-      <p>Sujo: <span id="total-sujo">R$ 0,00</span></p>
-      <p>Limpo Parceiro: <span id="total-limpo-parceiro">R$ 0,00</span></p>
-      <p>Sujo Parceiro: <span id="total-sujo-parceiro">R$ 0,00</span></p>
-    </div>
-  </main>
+<label>Forma de Pagamento:</label><br>
+<select id="formaPagamento" onchange="destacarFormaPagamento()">
+  <option value="limpo">Dinheiro Limpo (Normal)</option>
+  <option value="sujo">Dinheiro Sujo (+30%)</option>
+  <option value="limpo-parceiro">Dinheiro Limpo - Parceiros (-25%)</option>
+  <option value="sujo-parceiro">Dinheiro Sujo - Parceiros (-25%)</option>
+</select>
 
-  <footer>
-    <p>🐺 Wolf | Discord: pocabdf</p>
-  </footer>
+<table>
+  <thead>
+    <tr>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Limpo</th>
+      <th>Sujo</th>
+      <th>Limpo Parceiro</th>
+      <th>Sujo Parceiro</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
 
-  <script src="script.js"></script>
+<div class="totais">
+  <p>Total Limpo: <span id="totalLimpo">R$ 0,00</span></p>
+  <p>Total Sujo: <span id="totalSujo">R$ 0,00</span></p>
+  <p>Total Limpo Parceiro: <span id="totalLimpoParceiro">R$ 0,00</span></p>
+  <p>Total Sujo Parceiro: <span id="totalSujoParceiro">R$ 0,00</span></p>
+</div>
+
+<footer>🐺 Wolf | Discord: pocabdf</footer>
+
+<script>
+const produtos = [
+  { nome: 'Longbook', limpo: 100, sujo: 130, limpoParceiro: 75, sujoParceiro: 97.5 },
+  { nome: 'Macbook', limpo: 100, sujo: 130, limpoParceiro: 75, sujoParceiro: 97.5 },
+  { nome: 'Notebook', limpo: 200, sujo: 260, limpoParceiro: 150, sujoParceiro: 195 }
+];
+
+const tbody = document.getElementById('tbody');
+const totalLimpo = document.getElementById('totalLimpo');
+const totalSujo = document.getElementById('totalSujo');
+const totalLimpoParceiro = document.getElementById('totalLimpoParceiro');
+const totalSujoParceiro = document.getElementById('totalSujoParceiro');
+
+produtos.forEach((produto, index) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${produto.nome}</td>
+    <td><input type="number" min="0" value="0" onchange="atualizarValores(${index})"></td>
+    <td class="limpo">R$ 0,00</td>
+    <td class="sujo">R$ 0,00</td>
+    <td class="limpo-parceiro">R$ 0,00</td>
+    <td class="sujo-parceiro">R$ 0,00</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+function atualizarValores(index) {
+  const tr = tbody.children[index];
+  const qtd = parseInt(tr.querySelector('input').value) || 0;
+  const produto = produtos[index];
+
+  tr.querySelector('.limpo').textContent = formatar(produto.limpo * qtd);
+  tr.querySelector('.sujo').textContent = formatar(produto.sujo * qtd);
+  tr.querySelector('.limpo-parceiro').textContent = formatar(produto.limpoParceiro * qtd);
+  tr.querySelector('.sujo-parceiro').textContent = formatar(produto.sujoParceiro * qtd);
+
+  atualizarTotal();
+}
+
+function atualizarTotal() {
+  let tLimpo = 0, tSujo = 0, tLimpoParceiro = 0, tSujoParceiro = 0;
+
+  produtos.forEach((produto, index) => {
+    const tr = tbody.children[index];
+    const qtd = parseInt(tr.querySelector('input').value) || 0;
+
+    tLimpo += produto.limpo * qtd;
+    tSujo += produto.sujo * qtd;
+    tLimpoParceiro += produto.limpoParceiro * qtd;
+    tSujoParceiro += produto.sujoParceiro * qtd;
+  });
+
+  totalLimpo.textContent = formatar(tLimpo);
+  totalSujo.textContent = formatar(tSujo);
+  totalLimpoParceiro.textContent = formatar(tLimpoParceiro);
+  totalSujoParceiro.textContent = formatar(tSujoParceiro);
+}
+
+function formatar(valor) {
+  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function destacarFormaPagamento() {
+  const select = document.getElementById('formaPagamento');
+  select.classList.add('destaque');
+}
+</script>
+
 </body>
 </html>
